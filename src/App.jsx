@@ -40,6 +40,7 @@ export function App() {
   const handleSearch = (newQuery) => {
     setQuery(newQuery);
     setPage(1);
+    setImages([]);
   };
 
   const handalLoadMore = () => {
