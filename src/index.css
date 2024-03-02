@@ -15,6 +15,10 @@ p {
   margin: 0;
 }
 
+li {
+  list-style-type: none;
+}
+
 ul,
 ol {
   margin: 0;
