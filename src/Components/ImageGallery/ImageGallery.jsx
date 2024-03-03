@@ -1,12 +1,17 @@
 import { ImageCard } from "../ImageCard/ImageCard.jsx";
+import css from "../ImageGallery/imageGallery.module.css";
 
 export const ImageGallery = ({ dataImage, onCardClick }) => {
   return (
     <div>
-      <ul>
+      <ul className={css.list}>
         {dataImage.map((image) => {
           return (
-            <li key={image.id} onClick={() => onCardClick(image)}>
+            <li
+              key={image.id}
+              className={css.item}
+              onClick={() => onCardClick(image)}
+            >
               <ImageCard image={image} />
             </li>
           );

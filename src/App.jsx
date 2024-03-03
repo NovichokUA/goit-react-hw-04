@@ -28,6 +28,7 @@ export function App() {
         setError(false);
         setIsLoading(true);
         const data = await getImages(query, page);
+        console.log(data);
         setImages((prevData) => [...prevData, ...data]);
         setIsLoading(false);
       } catch (error) {
@@ -54,11 +55,6 @@ export function App() {
     setSelectedCard(image);
   }
 
-  // function afterOpenModal() {
-  //   // references are now sync'd and can be accessed.
-  //   subtitle.style.color = "#f00";
-  // }
-
   function closeModal() {
     setmodalIsOpen(false);
   }
@@ -70,7 +66,7 @@ export function App() {
         <ImageGallery dataImage={images} onCardClick={openModal} />
       )}
 
-      {selectedCard && (
+      {modalIsOpen && (
         <ModalWindow
           modalIsOpen={modalIsOpen}
           valueCard={selectedCard}
