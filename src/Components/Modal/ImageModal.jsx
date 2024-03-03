@@ -1,15 +1,5 @@
 import Modal from "react-modal";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
+import css from "./Modal.module.css";
 
 export const ModalWindow = ({ modalIsOpen, closeModal, valueCard }) => {
   if (!valueCard) return;
@@ -23,9 +13,9 @@ export const ModalWindow = ({ modalIsOpen, closeModal, valueCard }) => {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        style={customStyles}
         contentLabel="Image Modal"
         ariaHideApp={false}
+        className={css.modal}
       >
         <div>{valueCard && <img src={regular} alt={description} />}</div>
       </Modal>
