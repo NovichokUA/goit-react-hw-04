@@ -1,0 +1,38 @@
+.btn {
+    background-color: #0074d9;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.form {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.inp {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.inp:hover {
+    border-color: #0074d9;
+}
+
+.inp:focus {
+    outline: none;
+    box-shadow: 0 0 5px #0074d9;
+}

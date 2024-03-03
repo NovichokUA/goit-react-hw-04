@@ -1,3 +1,5 @@
+import css from "../ImageGallery/imageGallery.module.css";
+
 export const ImageCard = ({ image }) => {
   const {
     urls: { small },
@@ -6,7 +8,7 @@ export const ImageCard = ({ image }) => {
 
   return (
     <div>
-      <img src={small} alt={description} />
+      <img src={small} alt={description} className={css.item} />
     </div>
   );
 };

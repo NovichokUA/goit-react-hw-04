@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { SearchBar } from "./Components/SearchBar/SearchBar.jsx";
 import { getImages } from "./api.js";
-
-import "./App.css";
-import { Audio } from "react-loader-spinner";
-
 import { ImageGallery } from "./Components/ImageGallery/ImageGallery.jsx";
 import { ErrorMessage } from "./Components/ErrorMessage/ErrorMessage.jsx";
 import { ModalWindow } from "./Components/Modal/ImageModal.jsx";
+import { LoadMore } from "./Components/LoadMore/LoadMore.jsx";
+import { Spiner } from "./Components/Spiner/Spiner.jsx";
+
+import "./App.css";
 
 export function App() {
   const [query, setQuery] = useState("");
@@ -17,6 +17,7 @@ export function App() {
   const [page, setPage] = useState(1);
   const [selectedCard, setSelectedCard] = useState(null);
   const [modalIsOpen, setmodalIsOpen] = useState(false);
+  const [totalPage, settotalPage] = useState(0);
 
   useEffect(() => {
     if (query === "") {
@@ -28,9 +29,10 @@ export function App() {
         setError(false);
         setIsLoading(true);
         const data = await getImages(query, page);
-        console.log(data);
-        setImages((prevData) => [...prevData, ...data]);
+        console.log(data.total_pages, data.total);
+        setImages((prevData) => [...prevData, ...data.results]);
         setIsLoading(false);
+        settotalPage(data.total_pages);
       } catch (error) {
         setError(error);
       } finally {
@@ -44,6 +46,7 @@ export function App() {
     setQuery(newQuery);
     setPage(1);
     setImages([]);
+    settotalPage(0);
   };
 
   const handalLoadMore = () => {
@@ -74,20 +77,10 @@ export function App() {
         />
       )}
 
-      {images.length > 0 && !isLoading && (
-        <button onClick={handalLoadMore}>Load More</button>
+      {images.length > 0 && !isLoading && totalPage !== page && (
+        <LoadMore onClick={handalLoadMore} />
       )}
-      {isLoading && (
-        <Audio
-          height="80"
-          width="80"
-          radius="9"
-          color="green"
-          ariaLabel="loading"
-          wrapperStyle
-          wrapperClass
-        />
-      )}
+      {isLoading && <Spiner />}
       {error && <ErrorMessage />}
     </>
   );

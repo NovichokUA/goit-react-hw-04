@@ -24,7 +24,7 @@ export const ModalWindow = ({ modalIsOpen, closeModal, valueCard }) => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="Example Modal"
+        contentLabel="Image Modal"
         ariaHideApp={false}
       >
         <div>{valueCard && <img src={regular} alt={description} />}</div>

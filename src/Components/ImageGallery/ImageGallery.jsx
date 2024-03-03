@@ -7,11 +7,7 @@ export const ImageGallery = ({ dataImage, onCardClick }) => {
       <ul className={css.list}>
         {dataImage.map((image) => {
           return (
-            <li
-              key={image.id}
-              className={css.item}
-              onClick={() => onCardClick(image)}
-            >
+            <li key={image.id} onClick={() => onCardClick(image)}>
               <ImageCard image={image} />
             </li>
           );
