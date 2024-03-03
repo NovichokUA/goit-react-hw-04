@@ -3,8 +3,11 @@ import { SearchBar } from "./Components/SearchBar/SearchBar.jsx";
 import { getImages } from "./api.js";
 
 import "./App.css";
+import { Audio } from "react-loader-spinner";
 
 import { ImageGallery } from "./Components/ImageGallery/ImageGallery.jsx";
+import { ErrorMessage } from "./Components/ErrorMessage/ErrorMessage.jsx";
+import { ModalWindow } from "./Components/Modal/ImageModal.jsx";
 
 export function App() {
   const [query, setQuery] = useState("");
@@ -12,6 +15,8 @@ export function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [modalIsOpen, setmodalIsOpen] = useState(false);
 
   useEffect(() => {
     if (query === "") {
@@ -22,10 +27,7 @@ export function App() {
       try {
         setError(false);
         setIsLoading(true);
-        // setImages([]);
-
         const data = await getImages(query, page);
-
         setImages((prevData) => [...prevData, ...data]);
         setIsLoading(false);
       } catch (error) {
@@ -47,13 +49,50 @@ export function App() {
     setPage(page + 1);
   };
 
+  function openModal(image) {
+    setmodalIsOpen(true);
+    setSelectedCard(image);
+  }
+
+  // function afterOpenModal() {
+  //   // references are now sync'd and can be accessed.
+  //   subtitle.style.color = "#f00";
+  // }
+
+  function closeModal() {
+    setmodalIsOpen(false);
+  }
+
   return (
     <>
       <SearchBar onSearch={handleSearch} />
-      {isLoading && <b>loading...</b>}
-      {error && <b>Error</b>}
-      {images.length > 0 && <ImageGallery dataImage={images} />}
-      {images.length > 0 && <button onClick={handalLoadMore}>Load More</button>}
+      {images.length > 0 && (
+        <ImageGallery dataImage={images} onCardClick={openModal} />
+      )}
+
+      {selectedCard && (
+        <ModalWindow
+          modalIsOpen={modalIsOpen}
+          valueCard={selectedCard}
+          closeModal={closeModal}
+        />
+      )}
+
+      {images.length > 0 && !isLoading && (
+        <button onClick={handalLoadMore}>Load More</button>
+      )}
+      {isLoading && (
+        <Audio
+          height="80"
+          width="80"
+          radius="9"
+          color="green"
+          ariaLabel="loading"
+          wrapperStyle
+          wrapperClass
+        />
+      )}
+      {error && <ErrorMessage />}
     </>
   );
 }
