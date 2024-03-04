@@ -3,8 +3,8 @@ import { SearchBar } from "./Components/SearchBar/SearchBar.jsx";
 import { getImages } from "./api.js";
 import { ImageGallery } from "./Components/ImageGallery/ImageGallery.jsx";
 import { ErrorMessage } from "./Components/ErrorMessage/ErrorMessage.jsx";
-import { ModalWindow } from "./Components/Modal/ImageModal.jsx";
-import { LoadMore } from "./Components/LoadMore/LoadMore.jsx";
+import { ImageModal } from "./Components/ImageModal/ImageModal.jsx";
+import { LoadMoreBtn } from "./Components/LoadMoreBtn/LoadMoreBtn.jsx";
 import { Spiner } from "./Components/Spiner/Spiner.jsx";
 
 import "./App.css";
@@ -29,7 +29,6 @@ export function App() {
         setError(false);
         setIsLoading(true);
         const data = await getImages(query, page);
-        console.log(data.total_pages, data.total);
         setImages((prevData) => [...prevData, ...data.results]);
         setIsLoading(false);
         settotalPage(data.total_pages);
@@ -70,7 +69,7 @@ export function App() {
       )}
 
       {modalIsOpen && (
-        <ModalWindow
+        <ImageModal
           modalIsOpen={modalIsOpen}
           valueCard={selectedCard}
           closeModal={closeModal}
@@ -78,7 +77,7 @@ export function App() {
       )}
 
       {images.length > 0 && !isLoading && totalPage !== page && (
-        <LoadMore onClick={handalLoadMore} />
+        <LoadMoreBtn onClick={handalLoadMore} />
       )}
       {isLoading && <Spiner />}
       {error && <ErrorMessage />}

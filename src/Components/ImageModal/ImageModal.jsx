@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import css from "./Modal.module.css";
 
-export const ModalWindow = ({ modalIsOpen, closeModal, valueCard }) => {
+export const ImageModal = ({ modalIsOpen, closeModal, valueCard }) => {
   if (!valueCard) return;
   const {
     urls: { regular },
