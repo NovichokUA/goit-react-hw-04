@@ -61,9 +61,10 @@ export function App() {
     setmodalIsOpen(false);
   }
 
+  console.log(images);
   return (
     <>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} images={images} />
       {images.length > 0 && (
         <ImageGallery dataImage={images} onCardClick={openModal} />
       )}
